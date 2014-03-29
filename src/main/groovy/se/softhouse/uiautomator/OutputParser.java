@@ -1,5 +1,6 @@
 package se.softhouse.uiautomator;
 
+import java.util.Hashtable;
 import java.util.Map;
 
 import com.android.ddmlib.testrunner.ITestRunListener;
@@ -11,9 +12,13 @@ public class OutputParser implements ITestRunListener {
 	private String testSuite;
 	private MarkupBuilder writer;
 	
+	private Hashtable<TestIdentifier, Long> testTimes;
+	
 	public OutputParser(String testSuite, MarkupBuilder writer) {
 		this.testSuite = testSuite;
 		this.writer = writer;
+		
+		testTimes = new Hashtable<TestIdentifier, Long>();
 	}
 
 	@Override
@@ -54,7 +59,6 @@ public class OutputParser implements ITestRunListener {
 
 	@Override
 	public void testStarted(TestIdentifier arg0) {
-		// TODO Auto-generated method stub
-		
+		testTimes.put(arg0, System.currentTimeMillis());
 	}
 }
